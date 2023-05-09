@@ -13,29 +13,33 @@ def food():
 
 
 def test_snake_goes_left(snake):
-    snake.move(Direction.LEFT)
+    next_pos = snake.move(Direction.LEFT)
     assert snake.current_direction == Direction.LEFT
+    assert next_pos == (4, 5)
     assert snake.body.pop() == (4, 5)
     assert len(snake.body) == 0
 
 
 def test_snake_goes_right(snake):
-    snake.move(Direction.RIGHT)
+    next_pos = snake.move(Direction.RIGHT)
     assert snake.current_direction == Direction.RIGHT
+    assert next_pos == (6, 5)
     assert snake.body.pop() == (6, 5)
     assert len(snake.body) == 0
 
 
 def test_snake_goes_up(snake):
-    snake.move(Direction.UP)
+    next_pos = snake.move(Direction.UP)
     assert snake.current_direction == Direction.UP
+    assert next_pos == (5, 4)
     assert snake.body.pop() == (5, 4)
     assert len(snake.body) == 0
 
 
 def test_snake_goes_down(snake):
-    snake.move(Direction.DOWN)
+    next_pos = snake.move(Direction.DOWN)
     assert snake.current_direction == Direction.DOWN
+    assert next_pos == (5, 6)
     assert snake.body.pop() == (5, 6)
     assert len(snake.body) == 0
 
