@@ -30,16 +30,21 @@ class Food:
 class GreenApple(Food):
     @staticmethod
     def display() -> str:
-        # TODO: how does a green apple look like?
-        pass
+        return '🍏'
 
     @staticmethod
     def value() -> int:
-        # TODO: how much is a green apple worth?
-        pass
+        return 1
 
 
-# TODO: Implement a red apple
+class RedApple(Food):
+    @staticmethod
+    def display() -> str:
+        return "🍎"
+
+    @staticmethod
+    def value() -> int:
+        return 2
 
 
 class Direction(Enum):
@@ -75,10 +80,27 @@ class Snake:
     def move(self, direction: Direction) -> Position:
         """
         Move the snake by one block
-
         Returns:
             the new position of the snake's head
         """
+        n = self.body[-1]
+        x, y = n[0], n[1]
+        i = None
+        match direction:
+            case 0:
+                i = n
+            case 1:
+                i = tuple([x - 1, y])
+            case 2:
+                i = tuple([x + 1, y])
+            case 3:
+                i = tuple([x, y + 1])
+            case 4:
+                i = tuple([x, y - 1])
+            case _:
+                pass
+        self.body.append(i)
+
         # TODO: implement logic to move the snake by one block.
         #       To minimise the performance impact we could just move the
         #       last block of the body to the top and assign it the new
