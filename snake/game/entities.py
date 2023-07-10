@@ -71,11 +71,9 @@ class Snake:
         """
         Initialises the snake
         """
-        # TODO: initialise a snake!
-        #       - give its body a form...
-        #           initialise a deque with the only location the snake covers
-        #       - is is stationary or is it moving?
-        pass
+        self.body = deque([start])
+        self.current_direction = Direction.UNKNOWN
+        self.score = 0
 
     def move(self, direction: Direction) -> Position:
         """
@@ -83,34 +81,25 @@ class Snake:
         Returns:
             the new position of the snake's head
         """
-        n = self.body[-1]
+        n = self.body.popleft()
+        self.last_seen = n
         x, y = n[0], n[1]
-        i = None
-        match direction:
-            case 0:
-                i = n
-            case 1:
-                i = tuple([x - 1, y])
-            case 2:
-                i = tuple([x + 1, y])
-            case 3:
-                i = tuple([x, y + 1])
-            case 4:
-                i = tuple([x, y - 1])
-            case _:
-                pass
+        i = n
+        if direction == Direction.LEFT:
+            i = tuple([x - 1, y])
+        elif direction == Direction.RIGHT:
+            i = tuple([x + 1, y])
+        elif direction == Direction.UP:
+            i = tuple([x, y - 1])
+        elif direction == Direction.DOWN:
+            i = tuple([x, y + 1])
         self.body.append(i)
-
-        # TODO: implement logic to move the snake by one block.
-        #       To minimise the performance impact we could just move the
-        #       last block of the body to the top and assign it the new
-        #       position in the grid.
-        #       Update the snake's current direction, if necessary.
-        pass
+        self.current_direction = direction
+        return i
 
     def eat(self, food: Food):
         """
         Let the snake eat some food
         """
-        # TODO: grow the snake's tail!
-        pass
+        self.body.appendleft(self.last_seen)
+        self.score = self.score + food.value()
